@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Test.ViewModels;
 
 namespace Test.Controllers
 {
@@ -26,7 +27,23 @@ namespace Test.Controllers
             return View(roles);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add(RoleFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View("Index", await _roleManager.Roles.ToListAsync());
 
+            if (await _roleManager.RoleExistsAsync(model.Name))
+            {
+                ModelState.AddModelError("Name", "Role is exists!");
+                return View("Index", await _roleManager.Roles.ToListAsync());
+            }
+
+            await _roleManager.CreateAsync(new IdentityRole(model.Name.Trim()));
+
+            return RedirectToAction(nameof(Index));
+        }
 
     }
 }
