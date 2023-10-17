@@ -12,8 +12,8 @@ using Test.Data;
 namespace Test.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231016141757_AddProduct")]
-    partial class AddProduct
+    [Migration("20231017170818_AddCollection")]
+    partial class AddCollection
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -236,21 +236,55 @@ namespace Test.Data.Migrations
                     b.ToTable("Users", "security");
                 });
 
-            modelBuilder.Entity("Test.Models.product", b =>
+            modelBuilder.Entity("Test.Models.Course", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdCourses")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCourses"));
 
-                    b.Property<string>("CustomColumn")
+                    b.Property<string>("CourseDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("CourseName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.ToTable("CustomTables", "security");
+                    b.Property<int?>("IdGroups")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdCourses");
+
+                    b.HasIndex("IdGroups");
+
+                    b.ToTable("Dbcourses");
+                });
+
+            modelBuilder.Entity("Test.Models.Group", b =>
+                {
+                    b.Property<int>("IdGroups")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdGroups"));
+
+                    b.Property<string>("GroupDescription")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("IdGroups");
+
+                    b.ToTable("Dbgroups");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -302,6 +336,21 @@ namespace Test.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Test.Models.Course", b =>
+                {
+                    b.HasOne("Test.Models.Group", "group")
+                        .WithMany("courses")
+                        .HasForeignKey("IdGroups")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("group");
+                });
+
+            modelBuilder.Entity("Test.Models.Group", b =>
+                {
+                    b.Navigation("courses");
                 });
 #pragma warning restore 612, 618
         }

@@ -85,8 +85,7 @@ header {
     width: 100%;
     justify-content: center;
     align-items: center;
-    background: url(~/layout_home//img/lynx_in_space.png),  
-    background-repeat: no-repeat, repeat;
+    background: url(./layout_home//img/lynx_in_space.png),background-repeat:no-repeat, repeat;
     background-position: 90% 60%, center center;
     padding-top: 150px;
     padding-bottom: 90px;

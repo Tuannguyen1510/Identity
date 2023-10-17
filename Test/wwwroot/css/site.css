@@ -20,3 +20,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+
+
+
+.alert.alert-success.alert-dismissible {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    coloR: white;
+}

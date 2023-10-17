@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Test.Models.Group>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="width:80%; margin:auto; margin-top:100px">
+    <h3>Quản lý nhóm Khóa Học</h3>
+
+    <p>
+        <a asp-action="Create" class="btn btn-success">Thêm nhóm khóa học</a>
+    </p>
+
+    <form action="" method="get" class="form-inline" id="search-name">
+        <div class="form-group">
+            <label class="sr-only" for="keyword">Tìm theo tên loại</label>
+            <div class="">
+                <div class="input-group input-group-outline">
+                    <label class="form-label">Nhập tên bạn muốn tìm...</label>
+                    <input class="form-control" name="name" id="keyword" style="height:42px" />
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+    @* <table class="table">
+    <thead>
+    <tr>
+    <th>
+    @Html.DisplayNameFor(model => model.GroupName)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.GroupDescription)
+    </th>
+    <th></th>
+    </tr>
+    </thead>
+
+
+
+    <tbody>
+    @foreach (var item in Model) {
+    <tr>
+    <td>
+    @Html.DisplayFor(modelItem => item.GroupName)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.GroupDescription)
+    </td>
+    <td>
+    <a asp-action="Edit" asp-route-id="@item.IdGroups">Edit</a> |
+    <a asp-action="Details" asp-route-id="@item.IdGroups">Details</a> |
+    <a asp-action="Delete" asp-route-id="@item.IdGroups">Delete</a>
+    </td>
+    </tr>
+    }
+    </tbody>
+    </table> *@
+
+
+
+    <table class="table align-items-center mb-0">
+        <thead>
+            <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">@Html.DisplayNameFor(model => model.FirstOrDefault().GroupName)</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">@Html.DisplayNameFor(model => model.FirstOrDefault().GroupDescription)</th>
+                <th class="text-secondary opacity-7"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <p class="text-xs font-weight-bold mb-0">@Html.DisplayFor(modelItem => item.GroupName)</p>
+                    </td>
+                    <td>
+                        <p class="text-xs font-weight-bold mb-0">@Html.DisplayFor(modelItem => item.GroupDescription)</p>
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdGroups" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="" data-original-title="Edit">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.IdGroups" class="btn btn-info btn-action mr-1" data-toggle="tooltip" title="" data-original-title="Details">
+                            <i class="fas fa-clipboard-list"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.IdGroups" class="btn btn-danger btn-action" data-toggle="tooltip" title="" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="alert('Deleted')" data-original-title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

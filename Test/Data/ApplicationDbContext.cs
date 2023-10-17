@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using Test.Models;
+using Test.ViewModels;
 
 namespace Test.Data
 {
@@ -11,11 +13,12 @@ namespace Test.Data
             : base(options)
         {
         }
-        public DbSet<product> products { get; set; }
 
+       public DbSet<Group> Dbgroups { get; set; }
 
+        public DbSet<Course> Dbcourses { get; set; }
 
-
+        
         // file thêm 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -30,9 +33,16 @@ namespace Test.Data
             builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens" , "security");
 
 
-            builder.Entity<product>()
-              .ToTable("CustomTables", "security")
-              .HasKey(c => c.Id);
+            builder.Entity<Group>().HasKey(u => u.IdGroups);
+
+            builder.Entity<Course>().HasKey(c => c.IdCourses);
+
+            builder.Entity<Course>()
+                .HasOne(c => c.group)
+                .WithMany(u => u.courses)
+                .HasForeignKey(c => c.IdGroups)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
 
 

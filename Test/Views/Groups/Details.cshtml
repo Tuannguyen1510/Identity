@@ -1,0 +1,37 @@
+﻿@model Test.Models.Group
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="width:80%; margin:auto; margin-top:100px">
+
+    <h1>Details</h1>
+
+    <div>
+        <h4>Group</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.GroupName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.GroupName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.GroupDescription)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.GroupDescription)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.IdGroups">Edit</a> |
+        <a asp-action="Index" class="btn btn-danger">Quay lại</a>
+    </div>
+
+</div>
+
+

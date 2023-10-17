@@ -2,9 +2,9 @@
 
 <form method="post" asp-action="Add">
     <div class="input-group mb-3">
-        <input asp-for="Name" class="form-control" placeholder="Role name..." />
+        <input style="border: 2px solid green; border-radius:0px" asp-for="Name" class="form-control" placeholder="Role name..." />
         <div class="input-group-append">
-            <button type="submit" class="btn btn-primary">Add New Role</button>
+            <button type="submit" class="btn btn-success" style="height:100%; border-radius:0px">Thêm phân quyền người dùng</button>
         </div>
     </div>
     <span asp-validation-for="Name" class="text-danger"></span>
